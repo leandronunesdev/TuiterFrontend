@@ -1,9 +1,7 @@
-function App() {
-  return (
-    <div>
-      <h1>Welcome to Tuiter</h1>
-    </div>
-  );
-}
+import AppRoutes from "./routes";
+
+const App = () => {
+  return <AppRoutes />;
+};
 
 export default App;
