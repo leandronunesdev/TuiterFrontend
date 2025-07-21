@@ -1,10 +1,17 @@
 export const theme = {
   colors: {
-    primary: "#3498db",
-    secondary: "#2ecc71",
-    background: "#f5f6fa",
-    text: "#222",
-    error: "#e74c3c",
+    primary: "#5865F2",
+    secondary: "#23C483",
+    background: "#F4F6FB",
+    surface: "#FFFFFF",
+    text: "#23272F",
+    textLight: "#838AAE",
+    error: "#F04747",
+    warning: "#FFB020",
+    info: "#4CB1FF",
+    success: "#2BC48A",
+    border: "#E3E8F0",
+    muted: "#F0F2F6",
   },
   font: {
     family: "'Roboto', Arial, sans-serif",

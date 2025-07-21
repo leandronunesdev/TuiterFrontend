@@ -40,12 +40,6 @@ export const GlobalStyle = createGlobalStyle`
       color: ${({ theme }) => theme.colors.secondary};
     }
   }
-  button {
-    font-family: inherit;
-    cursor: pointer;
-    border: none;
-    background: none;
-  }
   ul, ol {
     list-style: none;
   }

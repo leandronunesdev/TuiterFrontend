@@ -1,37 +1,39 @@
-const Home = () => {
+import * as S from "./styles";
+
+const Login = () => {
   return (
-    <main>
-      <section aria-label="Login page">
+    <S.Main>
+      <S.Section aria-label="Login page">
         <h1>Tuiter</h1>
         <form aria-label="Login form" autoComplete="on">
-          <div>
+          <S.InputContainer>
             <label htmlFor="username">Username</label>
-            <input
+            <S.Input
               type="text"
               id="username"
               name="username"
               autoComplete="username"
               required
             />
-          </div>
-          <div>
+          </S.InputContainer>
+          <S.InputContainer>
             <label htmlFor="password">Password</label>
-            <input
+            <S.Input
               type="password"
               id="password"
               name="password"
               autoComplete="current-password"
               required
             />
-          </div>
-          <button type="submit">Enter</button>
+          </S.InputContainer>
+          <S.Button type="submit">Enter</S.Button>
         </form>
         <nav aria-label="Additional actions">
-          <a href="/criar-conta">Create account</a>
+          <a href="/create-account">Create account</a>
         </nav>
-      </section>
-    </main>
+      </S.Section>
+    </S.Main>
   );
 };
 
-export default Home;
+export default Login;
