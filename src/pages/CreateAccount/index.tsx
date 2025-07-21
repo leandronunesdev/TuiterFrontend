@@ -3,7 +3,7 @@ import Input from "../../components/Input";
 import Main from "../../components/Main";
 import Section from "../../components/Section";
 
-const Login = () => {
+const CreateAccount = () => {
   return (
     <Main>
       <Section aria-label="Login page">
@@ -35,4 +35,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default CreateAccount;

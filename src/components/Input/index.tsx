@@ -1,0 +1,23 @@
+import * as S from "./styles";
+import React from "react";
+
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  label: string;
+  labelProps?: React.LabelHTMLAttributes<HTMLLabelElement>;
+};
+
+const Input: React.FC<InputProps> = ({
+  label,
+  labelProps,
+  id,
+  ...inputProps
+}) => (
+  <S.InputContainer>
+    <label htmlFor={id} {...labelProps}>
+      {label}
+    </label>
+    <S.Input id={id} {...inputProps} />
+  </S.InputContainer>
+);
+
+export default Input;
