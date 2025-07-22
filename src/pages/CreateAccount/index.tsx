@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../components/Button";
@@ -8,6 +8,7 @@ import Section from "../../components/Section";
 import { registerUser } from "../../api/user";
 import { schema } from "./schema";
 import { useNavigate } from "react-router-dom";
+import ErrorMessage from "../../components/ErrorMessage";
 
 type FormData = {
   username: string;
@@ -16,6 +17,8 @@ type FormData = {
 };
 
 const CreateAccount = () => {
+  const [apiError, setApiError] = useState<string | null>(null);
+
   const navigate = useNavigate();
 
   const {
@@ -24,8 +27,6 @@ const CreateAccount = () => {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<FormData>({ resolver: yupResolver(schema) });
-
-  const [apiError, setApiError] = React.useState<string | null>(null);
 
   const onSubmit = async (data: FormData) => {
     setApiError(null);
@@ -78,9 +79,7 @@ const CreateAccount = () => {
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Creating..." : "Create"}
           </Button>
-          {apiError && (
-            <div style={{ color: "red", marginTop: 8 }}>{apiError}</div>
-          )}
+          {apiError && <ErrorMessage>{apiError}</ErrorMessage>}
         </form>
         <nav aria-label="Additional actions">
           <a href="/login">Already have an account? Log in</a>
