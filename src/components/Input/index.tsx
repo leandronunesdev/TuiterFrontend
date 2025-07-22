@@ -4,12 +4,14 @@ import React from "react";
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
   labelProps?: React.LabelHTMLAttributes<HTMLLabelElement>;
+  error?: string;
 };
 
 const Input: React.FC<InputProps> = ({
   label,
   labelProps,
   id,
+  error,
   ...inputProps
 }) => (
   <S.InputContainer>
@@ -17,6 +19,7 @@ const Input: React.FC<InputProps> = ({
       {label}
     </label>
     <S.Input id={id} {...inputProps} />
+    {error && <S.Error>{error}</S.Error>}
   </S.InputContainer>
 );
 
