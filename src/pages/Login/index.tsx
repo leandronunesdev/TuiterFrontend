@@ -19,7 +19,8 @@ const Login = () => {
     const password = formData.get("password") as string;
 
     try {
-      await loginUser({ usernameOrEmail, password });
+      const response = await loginUser({ usernameOrEmail, password });
+      localStorage.setItem("authToken", response.token);
       navigate("/home");
     } catch (err: any) {
       setApiError(err.message || "Error logging in. Please try again.");
