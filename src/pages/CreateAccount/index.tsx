@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../components/Button";
@@ -9,6 +9,7 @@ import { registerUser } from "../../api/user";
 import { schema } from "./schema";
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../../components/ErrorMessage";
+import useAuth from "../../hooks/useAuth";
 
 type FormData = {
   username: string;
@@ -18,6 +19,11 @@ type FormData = {
 
 const CreateAccount = () => {
   const [apiError, setApiError] = useState<string | null>(null);
+  const { redirectIfAuthenticated } = useAuth();
+
+  useEffect(() => {
+    redirectIfAuthenticated();
+  }, [redirectIfAuthenticated]);
 
   const navigate = useNavigate();
 

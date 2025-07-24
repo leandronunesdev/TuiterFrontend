@@ -1,8 +1,14 @@
 import { Navigate, Outlet } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const PrivateRoute = () => {
-  const token = localStorage.getItem("authToken");
-  return token ? <Outlet /> : <Navigate to="/login" replace />;
+  const { isAuthenticated } = useAuth();
+
+  if (isAuthenticated() && location.pathname === "/") {
+    return <Navigate to="/home" replace />;
+  }
+
+  return isAuthenticated() ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export default PrivateRoute;

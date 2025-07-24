@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginUser } from "../../api/user";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -6,9 +6,15 @@ import Main from "../../components/Main";
 import Section from "../../components/Section";
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../../components/ErrorMessage";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const [apiError, setApiError] = useState<string | null>(null);
+  const { redirectIfAuthenticated } = useAuth();
+
+  useEffect(() => {
+    redirectIfAuthenticated();
+  }, [redirectIfAuthenticated]);
 
   const navigate = useNavigate();
 
