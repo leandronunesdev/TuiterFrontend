@@ -1,57 +1,24 @@
-export type RegisterPayload = {
-  username: string;
-  email: string;
-  password: string;
+import type {
+  RegisterPayload,
+  User,
+  LoginPayload,
+  LoginResponse,
+} from "../types/user";
+import api from "./api";
+
+export const registerUser = async (payload: RegisterPayload): Promise<User> => {
+  const response = await api.post<User>("/User/register", payload);
+  return response.data;
 };
 
-type User = {
-  id: string;
-  username: string;
-  email: string;
+export const loginUser = async (
+  payload: LoginPayload
+): Promise<LoginResponse> => {
+  const response = await api.post<LoginResponse>("/User/login", payload);
+  return response.data;
 };
 
-export type LoginPayload = {
-  usernameOrEmail: string;
-  password: string;
+export const meUser = async (): Promise<User> => {
+  const response = await api.get<User>("/User/me");
+  return response.data;
 };
-
-type LoginResponse = {
-  token: string;
-  user: User;
-};
-
-export async function registerUser(payload: RegisterPayload): Promise<User> {
-  const response = await fetch(
-    "https://tuiterbackend.onrender.com/api/User/Register",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    }
-  );
-
-  if (!response.ok) {
-    const errorMsg = await response.text();
-    throw new Error(errorMsg);
-  }
-
-  return response.json();
-}
-
-export async function loginUser(payload: LoginPayload): Promise<LoginResponse> {
-  const response = await fetch(
-    "https://tuiterbackend.onrender.com/api/User/Login",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    }
-  );
-
-  if (!response.ok) {
-    const errorMsg = await response.text();
-    throw new Error(errorMsg);
-  }
-
-  return response.json();
-}

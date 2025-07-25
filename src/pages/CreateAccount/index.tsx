@@ -41,7 +41,8 @@ const CreateAccount = () => {
       navigate("/login");
       reset();
     } catch (err: any) {
-      setApiError(err.message || "Could not connect to server.");
+      console.log("Error creating account:", err);
+      setApiError(err.response.data || "Could not connect to server.");
     }
   };
 
