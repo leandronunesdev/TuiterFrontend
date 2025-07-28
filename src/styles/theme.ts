@@ -16,21 +16,27 @@ export const theme = {
   font: {
     family: "'Roboto', Arial, sans-serif",
     sizes: {
-      h1: "2.5rem",
-      h2: "2rem",
-      h3: "1.5rem",
-      body: "1rem",
-      small: "0.875rem",
+      h1: "2.5rem", // 40px (8 * 5)
+      h2: "2rem", // 32px (8 * 4)
+      h3: "1.5rem", // 24px (8 * 3)
+      body: "1rem", // 16px (4 * 4)
+      small: "0.875rem", // 14px (aproximação, pode usar 12px se quiser seguir estritamente o grid)
     },
   },
   spacing: {
-    xs: "4px",
-    sm: "8px",
-    md: "16px",
+    xxxs: "4px",
+    xxs: "8px",
+    xs: "12px",
+    sm: "16px",
+    md: "24px",
     lg: "32px",
+    xl: "40px",
+    xxl: "48px",
+    xxxl: "64px",
   },
   borderRadius: {
     sm: "4px",
     md: "8px",
+    lg: "16px",
   },
 };

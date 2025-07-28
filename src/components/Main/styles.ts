@@ -1,9 +1,13 @@
 import styled from "styled-components";
 
-export const Main = styled.main`
+type MainProps = {
+  alignItems?: string;
+};
+
+export const Main = styled.main<MainProps>`
   min-height: 100vh;
   min-width: 100vw;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: ${(props) => props.alignItems || "stretch"};
 `;

@@ -3,10 +3,11 @@ import * as S from "./styles";
 
 type MainProps = {
   children: ReactNode;
+  alignItems?: string;
 };
 
-const Main = ({ children }: MainProps) => {
-  return <S.Main>{children}</S.Main>;
+const Main = ({ children, alignItems }: MainProps) => {
+  return <S.Main alignItems={alignItems}>{children}</S.Main>;
 };
 
 export default Main;

@@ -34,7 +34,7 @@ const Login = () => {
   };
 
   return (
-    <Main>
+    <Main alignItems="center">
       <Section aria-label="Login page">
         <h1>Tuiter</h1>
         <form aria-label="Login form" autoComplete="on" onSubmit={onSubmit}>

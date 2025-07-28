@@ -8,6 +8,7 @@ export type User = {
   id: string;
   username: string;
   email: string;
+  bio?: string;
 };
 
 export type LoginPayload = {
