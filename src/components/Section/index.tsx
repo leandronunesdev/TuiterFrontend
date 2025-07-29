@@ -2,10 +2,11 @@ import * as S from "./styles";
 
 type SectionProps = {
   children: React.ReactNode;
+  alignContent?: string;
 };
 
-const Section = ({ children }: SectionProps) => {
-  return <S.Section>{children}</S.Section>;
+const Section = ({ children, alignContent }: SectionProps) => {
+  return <S.Section alignContent={alignContent}>{children}</S.Section>;
 };
 
 export default Section;
