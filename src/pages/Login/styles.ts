@@ -35,3 +35,11 @@ export const Paragraph = styled.p`
 export const Form = styled.form`
   width: 100%;
 `;
+
+export const Nav = styled.nav`
+  display: flex;
+
+  a {
+    font-weight: 600;
+  }
+`;

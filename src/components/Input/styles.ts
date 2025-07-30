@@ -4,7 +4,7 @@ import { theme } from "../../styles/theme";
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 8px;
+  margin: 8px 0;
   width: 100%;
 `;
 
@@ -25,9 +25,29 @@ export const IconWrapper = styled.span`
   z-index: 2;
 `;
 
+export const VisibilityToggle = styled.button`
+  position: absolute;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: ${theme.colors.gray};
+  cursor: pointer;
+  z-index: 2;
+  padding: 0;
+  height: 100%;
+  pointer-events: auto;
+
+  &:focus {
+    outline: none;
+    color: ${theme.colors.primary};
+  }
+`;
+
 export const Input = styled.input`
   width: 100%;
-  padding: 12px 16px 12px 40px;
+  padding: 12px 40px 12px 40px; /* espaço para ícone e botão */
   border: 1px solid ${theme.colors.border};
   border-radius: 4px;
   font-size: 1rem;

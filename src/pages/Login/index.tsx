@@ -6,7 +6,7 @@ import Main from "../../components/Main";
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../../components/ErrorMessage";
 import useAuth from "../../hooks/useAuth";
-import { Twitter } from "lucide-react";
+import { Twitter, Mail, Lock } from "lucide-react";
 import * as S from "./styles";
 
 const Login = () => {
@@ -51,6 +51,7 @@ const Login = () => {
             required
             label="Email or Username"
             placeholder="Enter your email or username"
+            icon={<Mail size={20} />}
           />
           <Input
             type="password"
@@ -60,13 +61,16 @@ const Login = () => {
             required
             label="Password"
             placeholder="Enter your password"
+            icon={<Lock size={20} />}
           />
-          <Button type="submit">Enter</Button>
+          <Button type="submit">Sign In</Button>
           {apiError && <ErrorMessage>{apiError}</ErrorMessage>}
         </S.Form>
-        <nav aria-label="Additional actions">
-          <a href="/create-account">Create account</a>
-        </nav>
+        <S.Nav aria-label="Additional actions">
+          <span>
+            Don't have an account? <a href="/create-account">Create account</a>
+          </span>
+        </S.Nav>
       </S.LoginFormContainer>
     </Main>
   );
