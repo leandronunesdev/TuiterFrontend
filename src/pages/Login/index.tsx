@@ -3,10 +3,11 @@ import { loginUser } from "../../api/user";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Main from "../../components/Main";
-import Section from "../../components/Section";
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../../components/ErrorMessage";
 import useAuth from "../../hooks/useAuth";
+import { Twitter } from "lucide-react";
+import * as S from "./styles";
 
 const Login = () => {
   const [apiError, setApiError] = useState<string | null>(null);
@@ -35,16 +36,21 @@ const Login = () => {
 
   return (
     <Main alignItems="center">
-      <Section aria-label="Login page">
-        <h1>Tuiter</h1>
-        <form aria-label="Login form" autoComplete="on" onSubmit={onSubmit}>
+      <S.LoginFormContainer>
+        <S.IconContainer>
+          <Twitter size={32} />
+        </S.IconContainer>
+        <h1>Welcome back</h1>
+        <S.Paragraph>Sign in to your SocialHub account</S.Paragraph>
+        <S.Form aria-label="Login S.Form" autoComplete="on" onSubmit={onSubmit}>
           <Input
             type="text"
             id="usernameOrEmail"
             name="usernameOrEmail"
             autoComplete="usernameOrEmail"
             required
-            label="Username or Email"
+            label="Email or Username"
+            placeholder="Enter your email or username"
           />
           <Input
             type="password"
@@ -53,14 +59,15 @@ const Login = () => {
             autoComplete="current-password"
             required
             label="Password"
+            placeholder="Enter your password"
           />
           <Button type="submit">Enter</Button>
           {apiError && <ErrorMessage>{apiError}</ErrorMessage>}
-        </form>
+        </S.Form>
         <nav aria-label="Additional actions">
           <a href="/create-account">Create account</a>
         </nav>
-      </Section>
+      </S.LoginFormContainer>
     </Main>
   );
 };

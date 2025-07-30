@@ -1,26 +1,29 @@
 export const theme = {
   colors: {
-    primary: "#5865F2",
+    primary: "#3B82F6",
     secondary: "#23C483",
-    background: "#F4F6FB",
+    background: "#E7EFFF",
     surface: "#FFFFFF",
-    text: "#23272F",
+    text: "#111926",
     textLight: "#838AAE",
     error: "#F04747",
     warning: "#FFB020",
     info: "#4CB1FF",
     success: "#2BC48A",
-    border: "#E3E8F0",
+    border: "#D1D5DB",
     muted: "#F0F2F6",
+    gray: "#9ea5b1",
+    lightGray: "#f9fafb",
   },
   font: {
-    family: "'Roboto', Arial, sans-serif",
+    family:
+      'ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
     sizes: {
-      h1: "2.5rem", // 40px (8 * 5)
-      h2: "2rem", // 32px (8 * 4)
-      h3: "1.5rem", // 24px (8 * 3)
-      body: "1rem", // 16px (4 * 4)
-      small: "0.875rem", // 14px (aproximação, pode usar 12px se quiser seguir estritamente o grid)
+      h1: "1.5rem", // 24px
+      h2: "1.25rem", // 20px
+      h3: "1.125rem", // 18px
+      body: "1rem", // 16px
+      small: "0.875rem", // 14px
     },
   },
   spacing: {

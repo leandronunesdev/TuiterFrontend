@@ -1,5 +1,6 @@
 import * as S from "./styles";
 import React from "react";
+import { Mail } from "lucide-react";
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -15,10 +16,15 @@ const Input: React.FC<InputProps> = ({
   ...inputProps
 }) => (
   <S.InputContainer>
-    <label htmlFor={id} {...labelProps}>
+    <S.Label htmlFor={id} {...labelProps}>
       {label}
-    </label>
-    <S.Input id={id} {...inputProps} />
+    </S.Label>
+    <S.InputAndIconContainer>
+      <S.IconWrapper>
+        <Mail size="1.25rem" />
+      </S.IconWrapper>
+      <S.Input id={id} {...inputProps} />
+    </S.InputAndIconContainer>
     {error && <S.Error>{error}</S.Error>}
   </S.InputContainer>
 );
