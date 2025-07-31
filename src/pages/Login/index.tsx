@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../../api/user";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -19,19 +20,25 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const mutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (response) => {
+      localStorage.setItem("authToken", response.token);
+      navigate("/home");
+    },
+    onError: (err: any) => {
+      setApiError(err.message || "Error logging in. Please try again.");
+    },
+  });
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const usernameOrEmail = formData.get("usernameOrEmail") as string;
     const password = formData.get("password") as string;
 
-    try {
-      const response = await loginUser({ usernameOrEmail, password });
-      localStorage.setItem("authToken", response.token);
-      navigate("/home");
-    } catch (err: any) {
-      setApiError(err.message || "Error logging in. Please try again.");
-    }
+    setApiError(null);
+    mutation.mutate({ usernameOrEmail, password });
   };
 
   return (
@@ -52,6 +59,7 @@ const Login = () => {
             label="Email or Username"
             placeholder="Enter your email or username"
             icon={<Mail size={20} />}
+            disabled={mutation.isPending}
           />
           <Input
             type="password"
@@ -62,9 +70,14 @@ const Login = () => {
             label="Password"
             placeholder="Enter your password"
             icon={<Lock size={20} />}
+            disabled={mutation.isPending}
           />
-          <Button type="submit">Sign In</Button>
-          {apiError && <ErrorMessage>{apiError}</ErrorMessage>}
+          <Button type="submit" disabled={mutation.isPending}>
+            {mutation.isPending ? "Signing In..." : "Sign In"}
+          </Button>
+          {(apiError || mutation.isError) && (
+            <ErrorMessage>{apiError || mutation.error?.message}</ErrorMessage>
+          )}
         </S.Form>
         <S.Nav aria-label="Additional actions">
           <span>
