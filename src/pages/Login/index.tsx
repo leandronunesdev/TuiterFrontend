@@ -7,8 +7,10 @@ import Main from "../../components/Main";
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../../components/ErrorMessage";
 import useAuth from "../../hooks/useAuth";
-import { Twitter, Mail, Lock } from "lucide-react";
+import { Mail, Lock } from "lucide-react";
 import * as S from "./styles";
+import Logo from "../../components/Logo";
+import FormContainer from "../../components/FormContainer";
 
 const Login = () => {
   const [apiError, setApiError] = useState<string | null>(null);
@@ -43,10 +45,8 @@ const Login = () => {
 
   return (
     <Main alignItems="center">
-      <S.LoginFormContainer>
-        <S.IconContainer>
-          <Twitter size={32} />
-        </S.IconContainer>
+      <FormContainer>
+        <Logo />
         <h1>Welcome back</h1>
         <S.Paragraph>Sign in to your SocialHub account</S.Paragraph>
         <S.Form aria-label="Login S.Form" autoComplete="on" onSubmit={onSubmit}>
@@ -58,7 +58,7 @@ const Login = () => {
             required
             label="Email or Username"
             placeholder="Enter your email or username"
-            icon={<Mail size={20} />}
+            icon={<Mail size={16} />}
             disabled={mutation.isPending}
           />
           <Input
@@ -69,7 +69,7 @@ const Login = () => {
             required
             label="Password"
             placeholder="Enter your password"
-            icon={<Lock size={20} />}
+            icon={<Lock size={16} />}
             disabled={mutation.isPending}
           />
           <Button type="submit" disabled={mutation.isPending}>
@@ -84,7 +84,7 @@ const Login = () => {
             Don't have an account? <a href="/create-account">Create account</a>
           </span>
         </S.Nav>
-      </S.LoginFormContainer>
+      </FormContainer>
     </Main>
   );
 };

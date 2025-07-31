@@ -1,20 +1,25 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "@tanstack/react-query";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Main from "../../components/Main";
-import Section from "../../components/Section";
 import { registerUser } from "../../api/user";
 import { schema } from "./schema";
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../../components/ErrorMessage";
 import useAuth from "../../hooks/useAuth";
+import Logo from "../../components/Logo";
+import FormContainer from "../../components/FormContainer";
+import * as S from "./styles";
+import { AtSign, Mail, Lock } from "lucide-react";
 
 type FormData = {
   username: string;
   email: string;
   password: string;
+  confirmPassword: string;
 };
 
 const CreateAccount = () => {
@@ -34,24 +39,31 @@ const CreateAccount = () => {
     reset,
   } = useForm<FormData>({ resolver: yupResolver(schema) });
 
-  const onSubmit = async (data: FormData) => {
-    setApiError(null);
-    try {
-      await registerUser(data);
+  const mutation = useMutation({
+    mutationFn: async (data: Omit<FormData, "confirmPassword">) =>
+      registerUser(data),
+    onSuccess: () => {
       navigate("/login");
       reset();
-    } catch (err: any) {
-      console.log("Error creating account:", err);
-      setApiError(err.response.data || "Could not connect to server.");
-    }
+    },
+    onError: (err: any) => {
+      setApiError(err.response?.data || "Could not connect to server.");
+    },
+  });
+
+  const onSubmit = (data: FormData) => {
+    setApiError(null);
+    const { confirmPassword, ...submitData } = data;
+    mutation.mutate(submitData);
   };
 
   return (
-    <Main>
-      <Section aria-label="Create account page">
-        <h1>Tuiter</h1>
-        <h2>Create Account</h2>
-        <form
+    <Main alignItems="center">
+      <FormContainer aria-label="Create account page">
+        <Logo />
+        <h1>Join SocialHub</h1>
+        <S.Paragraph>Create your account and start connecting</S.Paragraph>
+        <S.Form
           aria-label="Create account form"
           autoComplete="on"
           onSubmit={handleSubmit(onSubmit)}
@@ -64,6 +76,9 @@ const CreateAccount = () => {
             required
             {...register("username")}
             error={errors.username?.message}
+            icon={<AtSign size={16} />}
+            placeholder="username"
+            disabled={mutation.isPending}
           />
           <Input
             type="email"
@@ -73,6 +88,9 @@ const CreateAccount = () => {
             required
             {...register("email")}
             error={errors.email?.message}
+            icon={<Mail size={16} />}
+            placeholder="Enter your email"
+            disabled={mutation.isPending}
           />
           <Input
             type="password"
@@ -82,16 +100,37 @@ const CreateAccount = () => {
             required
             {...register("password")}
             error={errors.password?.message}
+            icon={<Lock size={16} />}
+            placeholder="Create a password"
+            disabled={mutation.isPending}
           />
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Creating..." : "Create"}
+          <Input
+            type="password"
+            id="confirmPassword"
+            label="Confirm Password"
+            autoComplete="new-password"
+            required
+            {...register("confirmPassword")}
+            error={errors.confirmPassword?.message}
+            icon={<Lock size={16} />}
+            placeholder="Confirm your password"
+            disabled={mutation.isPending}
+          />
+          <Button type="submit" disabled={mutation.isPending || isSubmitting}>
+            {mutation.isPending ? "Creating..." : "Create Account"}
           </Button>
-          {apiError && <ErrorMessage>{apiError}</ErrorMessage>}
-        </form>
-        <nav aria-label="Additional actions">
-          <a href="/login">Already have an account? Log in</a>
-        </nav>
-      </Section>
+          {(apiError || mutation.isError) && (
+            <ErrorMessage>
+              {apiError || (mutation.error as any)?.message}
+            </ErrorMessage>
+          )}
+        </S.Form>
+        <S.Nav aria-label="Additional actions">
+          <span>
+            Already have an account? <a href="/login">Sign in</a>
+          </span>
+        </S.Nav>
+      </FormContainer>
     </Main>
   );
 };
