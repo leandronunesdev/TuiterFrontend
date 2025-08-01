@@ -1,35 +1,87 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { MapPin, Calendar, ExternalLink } from "lucide-react";
 import { meUser } from "../../../../api/user";
-import * as S from "./styles";
 import type { User } from "../../../../types/user";
+import * as S from "./styles";
+
+const getAvatarUrl = (userIdOrUsername: string) => {
+  let hash = 0;
+  for (let i = 0; i < userIdOrUsername.length; i++) {
+    hash = userIdOrUsername.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash % 100);
+  return `https://randomuser.me/api/portraits/men/${index}.jpg`;
+};
+
+const mockedData = {
+  name: "John Doe",
+  bio: "This is a user bio. Passionate about coding and tech.",
+  location: "San Francisco, CA",
+  joinedDate: "Jan 2022",
+  website: "https://socialhub.com/johndoe",
+  posts: 42,
+  following: 123,
+  followers: 456,
+};
 
 const UserProfileSidebar = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const {
+    data: user,
+    isLoading,
+    isError,
+  } = useQuery<User>({
+    queryKey: ["meUser"],
+    queryFn: meUser,
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await meUser();
-        setUser(response);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
+  if (isLoading) return null;
+  if (isError || !user) return null;
 
-    fetchData();
-  }, []);
-
-  const avatarUrl = `https://randomuser.me/api/portraits/men/${Math.floor(
-    Math.random() * 100
-  )}.jpg`;
+  const avatarUrl = getAvatarUrl(user.username || user.id);
 
   return (
-    <S.Aside>
-      <S.Avatar src={avatarUrl} alt="User Avatar" />
-      <h2>{user?.username}</h2>
-      <p>{user?.email}</p>
-      <p>{user?.bio}</p>
-    </S.Aside>
+    <S.ProfileContainer>
+      <S.CenterColumn>
+        <S.Avatar src={avatarUrl} alt={mockedData.name} />
+        <S.Name>{mockedData.name}</S.Name>
+        <S.Username>@{user.username}</S.Username>
+        <S.Bio>{mockedData.bio}</S.Bio>
+        <S.InfoColumn>
+          <S.InfoRow>
+            <MapPin size={16} />
+            <span>{mockedData.location}</span>
+          </S.InfoRow>
+          <S.InfoRow>
+            <Calendar size={16} />
+            <span>Joined {mockedData.joinedDate}</span>
+          </S.InfoRow>
+          <S.InfoRow>
+            <ExternalLink size={16} />
+            <S.WebsiteLink
+              href={mockedData.website}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {mockedData.website}
+            </S.WebsiteLink>
+          </S.InfoRow>
+        </S.InfoColumn>
+        <S.StatsRow>
+          <S.Stat>
+            <S.StatValue>{mockedData.posts}</S.StatValue>
+            <S.StatLabel>Posts</S.StatLabel>
+          </S.Stat>
+          <S.Stat>
+            <S.StatValue>{mockedData.following}</S.StatValue>
+            <S.StatLabel>Following</S.StatLabel>
+          </S.Stat>
+          <S.Stat>
+            <S.StatValue>{mockedData.followers}</S.StatValue>
+            <S.StatLabel>Followers</S.StatLabel>
+          </S.Stat>
+        </S.StatsRow>
+      </S.CenterColumn>
+    </S.ProfileContainer>
   );
 };
 
