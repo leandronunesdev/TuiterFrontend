@@ -23,7 +23,7 @@ const FeedTitle = styled.h2`
   font-size: 1.25rem;
   font-weight: bold;
   color: #111827;
-  margin-bottom: 1rem;
+  margin: 0 1rem;
 `;
 
 const UserFeedContent: React.FC<UserFeedContentProps> = ({

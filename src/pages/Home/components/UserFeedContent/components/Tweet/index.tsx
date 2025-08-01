@@ -33,11 +33,12 @@ const TweetContainer = styled.div`
     0 1.5px 4px rgba(30, 41, 59, 0.04);
   border: 1px solid #f3f4f6;
   padding: 1.5rem;
-  margin-bottom: 1rem;
+  margin: 1rem;
   transition: box-shadow 0.2s;
   &:hover {
     box-shadow: 0 4px 12px rgba(30, 41, 59, 0.09);
   }
+  max-width: 600px;
 `;
 
 const FlexRow = styled.div`

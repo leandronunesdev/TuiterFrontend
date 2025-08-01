@@ -14,7 +14,8 @@ const ComposerContainer = styled.div`
     0 1.5px 4px rgba(30, 41, 59, 0.04);
   border: 1px solid #f3f4f6;
   padding: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin: 1rem;
+  max-width: 600px;
 `;
 
 const FlexRow = styled.div`
@@ -42,9 +43,11 @@ const ComposerTextarea = styled.textarea`
   outline: none;
   background: transparent;
   padding: 0;
+  font-family: "Inter", sans-serif;
   &::placeholder {
     color: #6b7280;
     opacity: 1;
+    font-family: inherit;
   }
 `;
 

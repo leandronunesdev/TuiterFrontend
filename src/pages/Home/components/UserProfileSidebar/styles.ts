@@ -7,7 +7,9 @@ export const ProfileContainer = styled.div`
     0 1.5px 4px rgba(30, 41, 59, 0.04);
   border: 1px solid #f3f4f6;
   padding: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin: 1rem;
+  max-width: 280px;
+  max-height: 450px;
 `;
 
 export const CenterColumn = styled.div`
