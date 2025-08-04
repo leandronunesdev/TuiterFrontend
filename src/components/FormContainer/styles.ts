@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { theme } from "../../styles/theme";
 
 export const LoginFormContainer = styled.section`
-  background-color: ${theme.colors.surface};
+  background-color: ${(props) => props.theme.colors.surface};
   display: flex;
   flex-direction: column;
   align-items: center;
