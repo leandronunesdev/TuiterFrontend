@@ -1,9 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { MapPin, Calendar, ExternalLink } from "lucide-react";
-import { meUser } from "../../../../api/user";
-import type { User } from "../../../../types/user";
 import * as S from "./styles";
-import { getAvatarUrl } from "../../../../utils/getAvatarUrl";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { meUser } from "api/user";
+import type { User } from "types/user";
+import { getAvatarUrl } from "utils/getAvatarUrl";
+import { setUser } from "features/userSlice";
+import type { RootState, AppDispatch } from "store";
 
 const mockedData = {
   name: "John Doe",
@@ -17,14 +21,23 @@ const mockedData = {
 };
 
 const UserProfileSidebar = () => {
+  const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch<AppDispatch>();
+
   const {
-    data: user,
+    data: userData,
     isLoading,
     isError,
   } = useQuery<User>({
     queryKey: ["meUser"],
     queryFn: meUser,
   });
+
+  useEffect(() => {
+    if (userData) {
+      dispatch(setUser(userData));
+    }
+  }, [userData, dispatch]);
 
   if (isLoading) return null;
   if (isError || !user) return null;

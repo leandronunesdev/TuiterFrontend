@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Feed from "./components/Feed";
 import TweetComposer from "./components/TweetComposer";
-import { currentUser, tweets } from "./constants";
+import { currentUser } from "./constants";
 import { useQuery } from "@tanstack/react-query";
 import { getPostsByUserId } from "../../../../api/post";
 import type { Post } from "../../../../types/post";

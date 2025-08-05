@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import type { Post } from "../../../../../../types/post";
 import { getAvatarUrl } from "../../../../../../utils/getAvatarUrl";
+import type { RootState } from "../../../../../../store";
+import { useSelector } from "react-redux";
 
 interface TweetProps {
   tweet: Post;
@@ -190,6 +192,8 @@ const LikeBtn = styled(ActionBtn)<{ isActive?: boolean }>`
 `;
 
 const Tweet: React.FC<TweetProps> = ({ tweet }) => {
+  const user = useSelector((state: RootState) => state.user);
+
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState(tweet.likesCount);
 
@@ -205,7 +209,7 @@ const Tweet: React.FC<TweetProps> = ({ tweet }) => {
         <FlexCol>
           <TweetHeader>
             <AuthorName>{"name"}</AuthorName>
-            <Username>@{"username"}</Username>
+            <Username>@{user.username}</Username>
             <Dot>·</Dot>
             <Timestamp>{tweet.createdAt}</Timestamp>
             <MoreBtn>
