@@ -1,23 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import Tweet from "../Tweet";
+import type { Post } from "../../../../../../types/post";
 
 interface FeedProps {
-  tweets: Array<{
-    id: string;
-    author: {
-      name: string;
-      username: string;
-      avatar: string;
-    };
-    content: string;
-    timestamp: string;
-    likes: number;
-    retweets: number;
-    replies: number;
-    isLiked: boolean;
-    isRetweeted: boolean;
-  }>;
+  tweets: Post[];
 }
 
 const FeedContainer = styled.div`

@@ -3,6 +3,9 @@ import styled from "styled-components";
 import Feed from "./components/Feed";
 import TweetComposer from "./components/TweetComposer";
 import { currentUser, tweets } from "./constants";
+import { useQuery } from "@tanstack/react-query";
+import { getPostsByUserId } from "../../../../api/post";
+import type { Post } from "../../../../types/post";
 
 interface UserFeedContentProps {
   handleNewTweet: (content: string) => void;
@@ -26,15 +29,20 @@ const FeedTitle = styled.h2`
   margin: 0 1rem;
 `;
 
-const UserFeedContent: React.FC<UserFeedContentProps> = ({
-  handleNewTweet,
-}) => {
+const UserFeedContent: React.FC<UserFeedContentProps> = () => {
+  const userId = "68840290a800f6cd82099863";
+
+  const { data: tweets } = useQuery<Post[]>({
+    queryKey: ["getPostsByUserId", userId],
+    queryFn: ({ queryKey }) => getPostsByUserId(queryKey[1] as string),
+  });
+
   return (
     <MainFeedContainer>
-      <TweetComposer onTweet={handleNewTweet} userAvatar={currentUser.avatar} />
+      <TweetComposer userAvatar={currentUser.avatar} />
       <Section>
         <FeedTitle>Your Feed</FeedTitle>
-        <Feed tweets={tweets} />
+        {tweets && <Feed tweets={tweets} />}
       </Section>
     </MainFeedContainer>
   );

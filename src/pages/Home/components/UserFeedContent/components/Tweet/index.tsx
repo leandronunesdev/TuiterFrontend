@@ -7,23 +7,11 @@ import {
   Share,
   MoreHorizontal,
 } from "lucide-react";
+import type { Post } from "../../../../../../types/post";
+import { getAvatarUrl } from "../../../../../../utils/getAvatarUrl";
 
 interface TweetProps {
-  tweet: {
-    id: string;
-    author: {
-      name: string;
-      username: string;
-      avatar: string;
-    };
-    content: string;
-    timestamp: string;
-    likes: number;
-    retweets: number;
-    replies: number;
-    isLiked: boolean;
-    isRetweeted: boolean;
-  };
+  tweet: Post;
 }
 
 const TweetContainer = styled.div`
@@ -202,31 +190,24 @@ const LikeBtn = styled(ActionBtn)<{ isActive?: boolean }>`
 `;
 
 const Tweet: React.FC<TweetProps> = ({ tweet }) => {
-  const [isLiked, setIsLiked] = useState(tweet.isLiked);
-  const [isRetweeted, setIsRetweeted] = useState(tweet.isRetweeted);
-  const [likes, setLikes] = useState(tweet.likes);
-  const [retweets, setRetweets] = useState(tweet.retweets);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likes, setLikes] = useState(tweet.likesCount);
 
   const handleLike = () => {
     setIsLiked((prev) => !prev);
     setLikes((prev) => (isLiked ? prev - 1 : prev + 1));
   };
 
-  const handleRetweet = () => {
-    setIsRetweeted((prev) => !prev);
-    setRetweets((prev) => (isRetweeted ? prev - 1 : prev + 1));
-  };
-
   return (
     <TweetContainer>
       <FlexRow>
-        <Avatar src={tweet.author.avatar} alt={tweet.author.name} />
+        <Avatar src={getAvatarUrl(tweet.userId)} alt={"name"} />
         <FlexCol>
           <TweetHeader>
-            <AuthorName>{tweet.author.name}</AuthorName>
-            <Username>@{tweet.author.username}</Username>
+            <AuthorName>{"name"}</AuthorName>
+            <Username>@{"username"}</Username>
             <Dot>·</Dot>
-            <Timestamp>{tweet.timestamp}</Timestamp>
+            <Timestamp>{tweet.createdAt}</Timestamp>
             <MoreBtn>
               <MoreHorizontal size={16} />
             </MoreBtn>
@@ -240,19 +221,7 @@ const Tweet: React.FC<TweetProps> = ({ tweet }) => {
               type="button"
             >
               <MessageCircle size={20} />
-              <span>{tweet.replies}</span>
             </ActionBtn>
-            <RetweetBtn
-              as="button"
-              type="button"
-              isActive={isRetweeted}
-              color="#22c55e"
-              hoverBg="#16a34a"
-              onClick={handleRetweet}
-            >
-              <Repeat2 size={20} />
-              <span>{retweets}</span>
-            </RetweetBtn>
             <LikeBtn
               as="button"
               type="button"
