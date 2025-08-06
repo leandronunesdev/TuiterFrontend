@@ -4,6 +4,7 @@ import CreateAccount from "../pages/CreateAccount";
 import Home from "../pages/Home";
 import PrivateRoute from "./PrivateRoutes";
 import PublicRoute from "./PublicRoutes";
+import EditAccount from "src/pages/EditAccount";
 
 const AppRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AppRoutes = () => {
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path="/home" element={<Home />} />
+          <Route path="/edit-account" element={<EditAccount />} />
         </Route>
       </Routes>
     </BrowserRouter>
