@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Send } from "lucide-react";
 import * as S from "./styles";
-import type { CreatePostPayload } from "../../../../../../types/post";
 import { useMutation } from "@tanstack/react-query";
-import { createPost } from "../../../../../../api/post";
+import { createPost } from "src/api/post";
+import type { CreatePostPayload } from "src/types/post";
 
 interface TweetComposerProps {
   userAvatar: string;

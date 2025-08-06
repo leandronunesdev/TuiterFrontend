@@ -1,24 +1,18 @@
 import React from "react";
-import styled from "styled-components";
 import Tweet from "../Tweet";
-import type { Post } from "../../../../../../types/post";
+import * as S from "./styles";
+import type { Post } from "src/types/post";
 
-interface FeedProps {
+type FeedProps = {
   tweets: Post[];
-}
-
-const FeedContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-`;
+};
 
 const Feed: React.FC<FeedProps> = ({ tweets }) => (
-  <FeedContainer>
+  <S.FeedContainer>
     {tweets.map((tweet) => (
       <Tweet key={tweet.id} tweet={tweet} />
     ))}
-  </FeedContainer>
+  </S.FeedContainer>
 );
 
 export default Feed;

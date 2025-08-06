@@ -3,11 +3,11 @@ import { MapPin, Calendar, ExternalLink } from "lucide-react";
 import * as S from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { meUser } from "api/user";
-import type { User } from "types/user";
-import { getAvatarUrl } from "utils/getAvatarUrl";
-import { setUser } from "features/userSlice";
-import type { RootState, AppDispatch } from "store";
+import { meUser } from "src/api/user";
+import { setUser } from "src/features/userSlice";
+import type { RootState, AppDispatch } from "src/store";
+import type { User } from "src/types/user";
+import { getAvatarUrl } from "src/utils/getAvatarUrl";
 
 const mockedData = {
   name: "John Doe",
